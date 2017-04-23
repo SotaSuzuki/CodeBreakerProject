@@ -16,13 +16,13 @@ function guess() {
   if (getResults(input)) {
     setMessage('You win! :)');
     showAnswer(true);
-    showReply();
+    showReplay();
     return;
   }
   if (attempt > 10) {
     setMessage('You lose.');
     showAnswer(false);
-    showReply();
+    showReplay();
     return;
   }
   setMessage('Incorrect, try again.');
@@ -34,11 +34,10 @@ function guess() {
 
 function setHiddenFields () {
   attempt = 0;
-  answer = Math.floor(Math.random() * 9999).toString();
+  answer = Math.floor(Math.random() * 10000).toString();
   while (answer.length < 4) {
     answer = '0' + answer;
   }
-  console.log(answer);
 }
 
 
@@ -74,10 +73,11 @@ function getResults (input) {
   }
   html += '</span></div>';
   document.getElementById('results').innerHTML += html;
-  if (correctCount === 4) {
+  if (correctCount === inputValue.length) {
     return true;
+  } else {
+    return false;
   }
-  return false;
 }
 
 
@@ -92,7 +92,7 @@ function showAnswer (userWin) {
 }
 
 
-function showReply () {
+function showReplay () {
   document.getElementById('guessing-div').style.display = 'none';
   document.getElementById('replay-div').style.display = 'block';
 }
