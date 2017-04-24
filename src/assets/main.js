@@ -1,17 +1,17 @@
-let answer = document.getElementById('answer').value;
-let attempt = document.getElementById('attempt').value;
+let answer = document.getElementById('answer');
+let attempt = document.getElementById('attempt');
 
 function guess() {
   let input = document.getElementById('user-guess');
 
-  if (answer === '' || attempt === '') {
+  if (answer.value === '' || attempt.value === '') {
     setHiddenFields();
   }
   if (!validateInput(input.value)) {
     input.select();
     return false;
   }
-  attempt++;
+  attempt.value++;
 
   if (getResults(input)) {
     setMessage('You win! :)');
@@ -19,7 +19,7 @@ function guess() {
     showReplay();
     return;
   }
-  if (attempt > 10) {
+  if (attempt.value > 10) {
     setMessage('You lose.');
     showAnswer(false);
     showReplay();
@@ -33,10 +33,10 @@ function guess() {
 
 
 function setHiddenFields () {
-  attempt = 0;
-  answer = Math.floor(Math.random() * 10000).toString();
-  while (answer.length < 4) {
-    answer = '0' + answer;
+  attempt.value = 0;
+  answer.value = Math.floor(Math.random() * 10000).toString();
+  while (answer.value.length < 4) {
+    answer.value = '0' + answer.value;
   }
 }
 
@@ -62,10 +62,10 @@ function getResults (input) {
 
   html += '<div class="row"><span class="col-md-6">' + inputValue + '</span><span class="col-md-6">';
   for (let j = 0, y = inputValue.length; j < y; j++) {
-    if (inputValue[j] === answer[j]) {
+    if (inputValue[j] === answer.value[j]) {
       html += '<span class="glyphicon glyphicon-ok"></span>';
       correctCount++;
-    } else if (answer.indexOf(inputValue[j]) > -1) {
+    } else if (answer.value.indexOf(inputValue[j]) > -1) {
       html += '<span class="glyphicon glyphicon-transfer"></span>';
     } else {
       html += '<span class="glyphicon glyphicon-remove"></span>';
@@ -83,7 +83,7 @@ function getResults (input) {
 
 function showAnswer (userWin) {
   let answerElm = document.getElementById('code');
-  answerElm.innerHTML = `<strong>${answer}</strong>`;
+  answerElm.innerHTML = `<strong>${answer.value}</strong>`;
   if (userWin) {
     answerElm.classList.add('success');
   } else {
